@@ -26,19 +26,19 @@ let categories: Array<string> = [];
 let recipes: Array<Recipe> = [];
 
 async function getCategories(): Promise<Array<string>> {
-  if (categories.length > 0) return [...categories];
+  // if (categories.length > 0) return [...categories];
   const res = await fetch(CATEGORIES_URL).then(handleHttpErrors);
   categories = [...res];
   return categories;
 }
 async function getRecipes(category: string | null): Promise<Array<Recipe>> {
-  //if (recipes.length > 0) return [...recipes];
+  // if (recipes.length > 0) return [...recipes];
   console.log("category", category);
   const queryParams = category ? "?category=" + category : "";
   return fetch(RECIPE_URL + queryParams).then(handleHttpErrors);
 }
 async function getRecipe(id: number): Promise<Recipe> {
-  //if (recipes.length > 0) return [...recipes];
+  // if (recipes.length > 0) return [...recipes];
   return fetch(RECIPE_URL + "/" + id).then(handleHttpErrors);
 }
 async function addRecipe(newRecipe: Recipe): Promise<Recipe> {
