@@ -1,6 +1,6 @@
 import "./RecipeForm.css";
 import { useState } from "react";
-import { getCategories, addRecipe, deleteRecipe, Recipe } from "../services/apiFacade";
+import { getCategories, deleteRecipe, Recipe } from "../services/apiFacade";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -41,15 +41,15 @@ export default function RecipeForm() {
     }
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const addedOrEdited = formData.id ? "edited" : "added";
-    const newRecipe = await addRecipe(formData);
-    alert(`Recipe ${addedOrEdited} successfully!`);
-    setFormData({ ...EMPTY_RECIPE });
-    console.log("newRecipe", newRecipe);
+  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   const addedOrEdited = formData.id ? "edited" : "added";
+  //   const newRecipe = await addRecipe(formData);
+  //   alert(`Recipe ${addedOrEdited} successfully!`);
+  //   setFormData({ ...EMPTY_RECIPE });
+  //   console.log("newRecipe", newRecipe);
 
-  };
+  // };
 
   return (
     <>
