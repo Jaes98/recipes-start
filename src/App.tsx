@@ -10,6 +10,9 @@ import Home from "./Home";
 import "./App.css";
 import RecipesLayout from "./recipes/RecipesLayout";
 // import Contact from "./Contact";
+import Logout from "./security/Logout";
+import * as React from "react";
+import RequireAuth from "./security/RequireAuth";
 
 export default function App() {
   //const auth = useAuth();
@@ -22,8 +25,17 @@ export default function App() {
           <Route index element={<RecipesLayout />} />
           <Route path=":id" element={<Recipe />} />
         </Route>
-        <Route path="/add" element={<RecipeForm />} />
+        <Route
+          path="/add"
+          element={
+            <RequireAuth roles={["ADMIN"]}>
+              <RecipeForm />
+            </RequireAuth>
+          }
+        />
+
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         {/* <Route path="/contact" element={<Contact />} /> */}
         {/* <Route path="/logout" element={<Logout />} /> */}
         <Route path="*" element={<h2>Page Not Found</h2>} />

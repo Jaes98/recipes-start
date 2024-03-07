@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getCategories, deleteRecipe, Recipe } from "../services/apiFacade";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import React from "react";
 
 const EMPTY_RECIPE = {
   id: null,

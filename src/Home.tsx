@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getInfo, Info } from "./services/apiFacade";
+import React from "react";
 
 export default function Home() {
   const [info, setInfo] = useState<Info | null>(null);
