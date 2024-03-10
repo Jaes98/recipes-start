@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuth } from "./AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../security/AuthProvider";
 import { User } from "../services/authFacade";
 import "./login.css";
 import React from "react";
@@ -12,7 +12,7 @@ const Login = () => {
   const location = useLocation();
   const auth = useAuth();
 
-  const [err, setErr] = useState(null);
+  const [err, setErr] = useState<Error | null>(null);
 
   const from = location.state?.from?.pathname || "/";
 
@@ -24,9 +24,16 @@ const Login = () => {
 
     setErr(null);
     console.log(err);
-    // alert("Login: " + JSON.stringify(user));
-    return auth.signIn(user).then(() => { navigate(from, { replace: true }); }).catch((err) => {setErr(err);});
+    alert("Login: " + JSON.stringify(user));
 
+    auth
+      .signIn(user)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((err: Error) => {
+        setErr(err);
+      });
   }
 
   return (
@@ -39,7 +46,9 @@ const Login = () => {
             type="text"
             name="username"
             value={user.username}
-            onChange={(e) => setUser((prev) => ({ ...prev, username: e.target.value }))}
+            onChange={(e) =>
+              setUser((prev) => ({ ...prev, username: e.target.value }))
+            }
             required
           />
         </div>
@@ -49,7 +58,9 @@ const Login = () => {
             type="password"
             name="password"
             value={user.password}
-            onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+            onChange={(e) =>
+              setUser((prev) => ({ ...prev, password: e.target.value }))
+            }
             required
           />
         </div>

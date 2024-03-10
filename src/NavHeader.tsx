@@ -26,10 +26,10 @@ export default function NavHeader() {
           </li>
         )}
 
-        {/* <li>
-          <a href="/add">Add</a>
+        <li>
+          {/* <a href="/add">Add</a> */}
           <NavLink to="/contact">Contact</NavLink>
-        </li> */}
+        </li>
         <AuthStatus />
       </ul>
     </nav>

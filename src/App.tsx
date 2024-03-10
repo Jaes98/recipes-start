@@ -36,8 +36,7 @@ export default function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        {/* <Route path="/contact" element={<Contact />} /> */}
-        {/* <Route path="/logout" element={<Logout />} /> */}
+        <Route path="/contact" element={<Login />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </Layout>

@@ -1,8 +1,12 @@
 import "./RecipeForm.css";
-import { useState } from "react";
-import { getCategories, deleteRecipe, Recipe } from "../services/apiFacade";
+import { useEffect, useState } from "react";
+import {
+  getCategories,
+  addRecipe,
+  deleteRecipe,
+  Recipe,
+} from "../services/apiFacade";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import React from "react";
 
 const EMPTY_RECIPE = {
@@ -18,17 +22,19 @@ const EMPTY_RECIPE = {
 
 export default function RecipeForm() {
   const [categories, setCategories] = useState([""]);
-  //const recipeToEdit = useLocation().state || null;
   const recipeToEdit = useLocation().state || null;
-  //const [formData, setFormData] = useState<Recipe>(recipeToEdit || EMPTY_RECIPE);
-  const [formData, setFormData] = useState<Recipe>(recipeToEdit || EMPTY_RECIPE);
+  const [formData, setFormData] = useState<Recipe>(
+    recipeToEdit || EMPTY_RECIPE
+  );
 
   useEffect(() => {
     getCategories().then((res) => setCategories(res));
+    // console.log("use location:",useLocation());
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -42,15 +48,14 @@ export default function RecipeForm() {
     }
   };
 
-  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   const addedOrEdited = formData.id ? "edited" : "added";
-  //   const newRecipe = await addRecipe(formData);
-  //   alert(`Recipe ${addedOrEdited} successfully!`);
-  //   setFormData({ ...EMPTY_RECIPE });
-  //   console.log("newRecipe", newRecipe);
-
-  // };
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const addedOrEdited = formData.id ? "edited" : "added";
+    const newRecipe = await addRecipe(formData);
+    alert(`Recipe ${addedOrEdited} successfully!`);
+    setFormData({ ...EMPTY_RECIPE });
+    console.log("newRecipe", newRecipe);
+  };
 
   return (
     <>
@@ -58,7 +63,13 @@ export default function RecipeForm() {
       <form id="recipeForm">
         <div className="form-group">
           <label htmlFor="id">ID:</label>
-          <input type="text" id="name" name="name" disabled value={formData.id || ""} />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            disabled
+            value={formData.id || ""}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -136,20 +147,19 @@ export default function RecipeForm() {
         </div>
         <div className="form-group">
           <label htmlFor="source">Source:</label>
-          <input type="text" id="source" name="source" required />
+          <input
+            type="text"
+            id="source"
+            name="source"
+            required
+            onChange={handleChange}
+          />
         </div>
       </form>
-      <button type="submit" className="recipe-form-btn">
+      <button type="submit" className="recipe-form-btn" onClick={handleSubmit}>
         Submit
       </button>
-      <button
-        className="recipe-form-btn"
-        onClick={() => {
-          setFormData({ ...EMPTY_RECIPE });
-        }}
-      >
-        Cancel
-      </button>
+      <button className="recipe-form-btn">Cancel</button>
       {formData.id && (
         <>
           <button className="recipe-form-btn" onClick={handleDelete}>
