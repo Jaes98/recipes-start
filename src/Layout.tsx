@@ -1,5 +1,6 @@
 import NavHeader from "./NavHeader";
 import "./layout.css";
+import React from "react";
 type LayoutProps = {
   children: React.ReactNode;
 };

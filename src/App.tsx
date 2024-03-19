@@ -19,24 +19,24 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/categories/" element={<Categories />} />
+        <Route path="/" element={<Home />}/>
+        <Route path="/categories/" element={<Categories />}/>
         <Route path="/recipes">
-          <Route index element={<RecipesLayout />} />
-          <Route path=":id" element={<Recipe />} />
+          <Route index element={<RecipesLayout />}/>
+          <Route path=":id" element={<Recipe />}/>
         </Route>
         <Route
           path="/add"
           element={
             <RequireAuth roles={["ADMIN"]}>
-              <RecipeForm />
+              <RecipeForm/>
             </RequireAuth>
           }
         />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/contact" element={<Login />} />
+        <Route path="/login" element={<Login />}/>
+        <Route path="/logout" element={<Logout />}/>
+        <Route path="/contact" element={<Login />}/>
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </Layout>
